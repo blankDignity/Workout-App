@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import reset from './assets/reset.png'
+import reset from '../assets/reset.png'
 
 export function Timer() {
   const [state, setState] = useState<"Play" | "Pause">("Play");
