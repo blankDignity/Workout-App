@@ -18,35 +18,32 @@ const connection = new Client({
 
 connection.connect(undefined).then(() => {
   console.log("Connected to the database.");
-}).catch(err =>{
-  console.log("Database connection failed with error ");
+}).catch(err => {
+  console.log("Database connection failed with error: ", err);
   process.exit(1);
 })
 
 app.get('/', async (req, res) => {
-  // const result = await connection.query("SELECT * FROM users;");
-  // console.log(result.rows[0]);
   res.send('Test');
 });
 
 app.get('/api/data', async (req, res) => {
   const result = await connection.query("SELECT * FROM users;");
   res.json(result.rows);
-})
+});
 
-app.post('/users', async(req, res) => {
-  const {id, name} = req.body;
+app.post('/api/workout_list', async (req, res) => {
+  const {name, target_muscle_group} = req.body;
 
-  try{
-    const result = await connection.query('INSERT INTO users (id, name) VALUES ($1,$2) RETURNING *;', [id, name]);
+  try {
+    const result = await connection.query('INSERT INTO workout_list (workout_name, muscle_group) VALUES ($1,$2) RETURNING *;', [name, target_muscle_group]);
 
     res.json(result.rows[0]);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json({error: err.message});
   }
-})
+});
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)
-})
+});
