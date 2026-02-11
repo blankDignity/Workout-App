@@ -32,6 +32,11 @@ app.get('/api/data', async (req, res) => {
   res.json(result.rows);
 });
 
+app.get('/api/workouts', async (req, res) => {
+  const result = await connection.query("SELECT * FROM workout_list;");
+  res.json(result.rows);
+})
+
 app.post('/api/workout_list', async (req, res) => {
   const {name, target_muscle_group} = req.body;
 
