@@ -1,6 +1,4 @@
-type muscle_group = "arms" | "legs" | "chest" | "shoulders" | "forearms" | "back" | "core" | "";
-
 export type Workout = {
-  name: string,
-  target_muscle_group: muscle_group,
+  workout_name: string,
+  muscle_group: string,
 }

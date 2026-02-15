@@ -23,25 +23,25 @@ connection.connect(undefined).then(() => {
   process.exit(1);
 })
 
-app.get('/', async (req, res) => {
-  res.send('Test');
-});
-
-app.get('/api/data', async (req, res) => {
-  const result = await connection.query("SELECT * FROM users;");
-  res.json(result.rows);
-});
-
 app.get('/api/workouts', async (req, res) => {
   const result = await connection.query("SELECT * FROM workout_list;");
   res.json(result.rows);
 })
 
+app.post('/api/delete_workout', async (req, res) => {
+  const {workout_name} = req.body;
+
+  const result = await connection.query(`DELETE
+                                         FROM workout_list
+                                         WHERE workout_name = $1;`, [workout_name]);
+  res.json(result.rows[0]);
+})
+
 app.post('/api/workout_list', async (req, res) => {
-  const {name, target_muscle_group} = req.body;
+  const {workout_name, muscle_group} = req.body;
 
   try {
-    const result = await connection.query('INSERT INTO workout_list (workout_name, muscle_group) VALUES ($1,$2) RETURNING *;', [name, target_muscle_group]);
+    const result = await connection.query('INSERT INTO workout_list (workout_name, muscle_group) VALUES ($1,$2) RETURNING *;', [workout_name, muscle_group]);
 
     res.json(result.rows[0]);
   } catch (err) {

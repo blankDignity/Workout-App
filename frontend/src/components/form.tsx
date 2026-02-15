@@ -4,8 +4,8 @@ import {useState} from "react";
 
 export function Form() {
   const [form, setForm] = useState<Workout>({
-    name: "",
-    target_muscle_group: "",
+    workout_name: "",
+    muscle_group: "",
   });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -35,8 +35,8 @@ export function Form() {
     console.log(`Stored: ${data}`);
 
     setForm({
-      name: "",
-      target_muscle_group: "",
+      workout_name: "",
+      muscle_group: "",
     })
   }
 
@@ -44,11 +44,11 @@ export function Form() {
       <>
         <form onSubmit={handleSubmit}>
           <pre>Enter workout to add: </pre>
-          <input name={"name"} value={form.name} placeholder={"E.g:- Push-ups, Squats, etc."}
+          <input name={"workout_name"} value={form.workout_name} placeholder={"E.g:- Push-ups, Squats, etc."}
                  onChange={handleChange}/><br/>
 
           <pre>Enter muscle group: </pre>
-          <input name={"target_muscle_group"} value={form.target_muscle_group} placeholder={"E.g:- Arms, Legs, etc."}
+          <input name={"muscle_group"} value={form.muscle_group} placeholder={"E.g:- Arms, Legs, etc."}
                  onChange={handleChange}/><br/><br/>
           <button type={"submit"}>Save</button>
           <br/><br/>
