@@ -1,9 +1,18 @@
-import {useEffect, useState} from "react";
+import * as React from "react";
+import {useEffect} from "react";
 import type {Workout} from "../types/workout.ts";
 import {Delete_button} from "./delete_button.tsx";
 
-export function Workout_list() {
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
+type Workout_with_id = Workout & {
+  id: number;
+}
+
+interface props {
+  Workouts: Workout_with_id[],
+  setWorkouts: React.Dispatch<React.SetStateAction<Workout_with_id[]>>,
+}
+
+export function Workout_list({Workouts, setWorkouts}: props) {
   useEffect(() => {
     async function getData() {
       try {
@@ -13,7 +22,7 @@ export function Workout_list() {
           console.log(`Response Status: ${response.status}`);
           return;
         }
-        const result: Workout[] = await response.json();
+        const result: Workout_with_id[] = await response.json();
         setWorkouts(result);
         console.log(result);
       } catch (error) {
@@ -21,17 +30,17 @@ export function Workout_list() {
       }
     }
 
-    getData();
-  }, []);
+    getData().then();
+  }, [setWorkouts]);
 
   return (
       <>
         <div id={"workout_list"}>
-          {workouts && workouts.map((w, index) =>
+          {Workouts?.map((w, index) =>
               <div key={index}>
                 <span>{w.workout_name}: </span>
                 <span>{w.muscle_group}   </span>
-                <Delete_button workout_name={w.workout_name}/>
+                <Delete_button id={w.id} setWorkouts={setWorkouts}/>
               </div>
           )}
         </div>

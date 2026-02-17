@@ -2,7 +2,16 @@ import type {Workout} from "../types/workout.ts";
 import * as React from "react";
 import {useState} from "react";
 
-export function Form() {
+
+type Workout_with_id = Workout & {
+  id: number;
+}
+
+interface props {
+  setWorkouts: React.Dispatch<React.SetStateAction<Workout_with_id[]>>,
+}
+
+export function Form({setWorkouts}: props) {
   const [form, setForm] = useState<Workout>({
     workout_name: "",
     muscle_group: "",
@@ -31,8 +40,10 @@ export function Form() {
       body: JSON.stringify(form),
     });
 
-    const data = await response.json();
+    const data: Workout_with_id = await response.json();
     console.log(`Stored: ${data}`);
+
+    setWorkouts(prev => [...prev, data]);
 
     setForm({
       workout_name: "",

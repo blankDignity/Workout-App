@@ -28,12 +28,13 @@ app.get('/api/workouts', async (req, res) => {
   res.json(result.rows);
 })
 
-app.post('/api/delete_workout', async (req, res) => {
-  const {workout_name} = req.body;
+app.delete('/api/workouts/:id', async (req, res) => {
+  const {id} = req.params;
 
   const result = await connection.query(`DELETE
                                          FROM workout_list
-                                         WHERE workout_name = $1;`, [workout_name]);
+                                         WHERE id = $1;`, [id]);
+
   res.json(result.rows[0]);
 })
 
