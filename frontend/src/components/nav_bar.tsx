@@ -5,6 +5,7 @@ export function Nav_bar() {
           <nav>
             <ul>
               <li>Home</li>
+              <li>Add workout</li>
               <li>About</li>
             </ul>
           </nav>

@@ -15,9 +15,11 @@ function App() {
   return (
       <>
         <Nav_bar/>
-        <Form setWorkouts={setWorkouts}/>
-        <Workout_list Workouts={Workouts} setWorkouts={setWorkouts}/>
-        <Timer/>
+        <div id={"body"}>
+          <Form setWorkouts={setWorkouts}/>
+          <Workout_list Workouts={Workouts} setWorkouts={setWorkouts}/>
+          <Timer/>
+        </div>
       </>
   )
 }

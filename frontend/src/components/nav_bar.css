@@ -1,0 +1,16 @@
+/*Only apply these to direct li child of ul */
+ul > li {
+    display: inline-block;
+    padding: 20px;
+    font-size: 1.01em;
+}
+
+ul {
+    text-align: right;
+    margin: 0 1.1em 0 0;
+}
+
+#nav_bar {
+    background-color: var(--background-color-nav);
+    border-radius: 0 0 10px 10px;
+}

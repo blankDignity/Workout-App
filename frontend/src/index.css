@@ -1,15 +1,23 @@
-* {
-    background-color: #212121;
+@import url("./App.css");
+@import url("./components/nav_bar.css");
+
+:root {
+    font-family: Inter, sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+    --background-color: #212121;
+    --background-color-nav: #DC3636;
+    --background-color-alternate: #7F2C2C;
+}
+
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: InterVariable, sans-serif;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
     color: aliceblue;
-}
-
-/*Only apply these to direct li child of ul */
-ul > li {
-    display: inline-block;
-    padding: 15px;
-}
-
-ul {
-    text-align: right;
-    margin-right: 2em;
 }
