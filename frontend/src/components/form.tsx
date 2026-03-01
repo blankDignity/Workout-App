@@ -53,17 +53,18 @@ export function Form({setWorkouts}: props) {
 
   return (
       <>
-        <form onSubmit={handleSubmit}>
-          <pre>Enter workout to add: </pre>
-          <input name={"workout_name"} value={form.workout_name} placeholder={"E.g:- Push-ups, Squats, etc."}
-                 onChange={handleChange}/><br/>
+        <div className={"form"}>
+          <form onSubmit={handleSubmit} id={"workout_adding_form"}>
+            <pre>Enter workout to add: </pre>
+            <input name={"workout_name"} value={form.workout_name} placeholder={"E.g:- Push-ups, Squats, etc."}
+                   onChange={handleChange}/><br/>
 
-          <pre>Enter muscle group: </pre>
-          <input name={"muscle_group"} value={form.muscle_group} placeholder={"E.g:- Arms, Legs, etc."}
-                 onChange={handleChange}/><br/><br/>
-          <button type={"submit"}>Save</button>
-          <br/><br/>
-        </form>
+            <pre>Enter muscle group: </pre>
+            <input name={"muscle_group"} value={form.muscle_group} placeholder={"E.g:- Arms, Legs, etc."}
+                   onChange={handleChange}/><br/><br/>
+            <button type={"submit"} className={"saveBtn"}>Save</button>
+          </form>
+        </div>
       </>
   );
 }

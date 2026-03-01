@@ -36,13 +36,21 @@ export function Workout_list({Workouts, setWorkouts}: props) {
   return (
       <>
         <div id={"workout_list"}>
+          <br/>
+          <br/>
           {Workouts?.map((w, index) =>
               <div key={index}>
-                <span>{w.workout_name}: </span>
+                {/*unique id chainxa label kaam garna*/}
+                <input type={"checkbox"} id={"workout_name" + index}/>
+                <label htmlFor={"workout_name" + index}>{w.workout_name}: </label>
                 <span>{w.muscle_group}   </span>
                 <Delete_button id={w.id} setWorkouts={setWorkouts}/>
               </div>
           )}
+          <br/>
+          <input type={"submit"} value={"Save workout plan"}/>
+          <br/>
+          <br/>
         </div>
       </>
   );

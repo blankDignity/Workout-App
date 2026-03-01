@@ -1,12 +1,14 @@
 @import url("./App.css");
 @import url("./components/nav_bar.css");
+@import url("./components/workout_list.css");
+@import url("./components/form.css");
 
 :root {
     font-family: Inter, sans-serif;
     font-feature-settings: 'liga' 1, 'calt' 1;
     --background-color: #212121;
     --background-color-nav: #DC3636;
-    --background-color-alternate: #7F2C2C;
+    --background-color-alternate: #eae7e7;
 }
 
 @supports (font-variation-settings: normal) {
