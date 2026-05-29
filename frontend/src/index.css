@@ -1,12 +1,9 @@
-@import url("./App.css");
-@import url("./components/nav_bar.css");
-@import url("./components/workout_list.css");
-@import url("./components/form.css");
+@import "tailwindcss";
 
 :root {
     font-family: Inter, sans-serif;
     font-feature-settings: 'liga' 1, 'calt' 1;
-    --background-color: #212121;
+    --background-color: #0a0a0f;
     --background-color-nav: #DC3636;
     --background-color-alternate: #eae7e7;
 }
@@ -15,11 +12,4 @@
     :root {
         font-family: InterVariable, sans-serif;
     }
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: aliceblue;
 }

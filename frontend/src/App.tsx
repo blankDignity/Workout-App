@@ -1,27 +1,20 @@
-import {Workout_list} from './components/workout_list.tsx'
-import {Timer} from './components/timer.tsx'
-import {Nav_bar} from './components/nav_bar.tsx'
-import {Form} from './components/form.tsx'
-import {useState} from "react";
-import type {Workout} from "./types/workout.ts";
-
-type Workout_with_id = Workout & {
-  id: number;
-}
+import Home from './pages/home.tsx'
+import {Route, Routes} from "react-router"
+import AddWorkout from "./pages/addWorkout.tsx";
+import WorkoutPlans from "./pages/workoutPlans.tsx";
+import About from "./pages/about.tsx";
+import Sidebar from "./components/sidebar.tsx";
 
 function App() {
-  const [Workouts, setWorkouts] = useState<Workout_with_id[]>([]);
-
-  return (
-      <>
-        <Nav_bar/>
-        <div id={"body"}>
-          <Form setWorkouts={setWorkouts}/>
-          <Workout_list Workouts={Workouts} setWorkouts={setWorkouts}/>
-          <Timer/>
-        </div>
-      </>
-  )
+  return <div className="grid grid-cols-2">
+    <Sidebar/>
+    <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/addWorkout" element={<AddWorkout/>}/>
+      <Route path={"/workoutPlans"} element={<WorkoutPlans/>}/>
+      <Route path={"/about"} element={<About/>}/>
+    </Routes>
+  </div>
 }
 
 export default App
