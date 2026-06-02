@@ -50,6 +50,17 @@ app.post('/api/workout_list', async (req, res) => {
   }
 });
 
+app.post('/api/workout_plan', async (req, res) => {
+  const {workout_name, muscle_group, day} = req.body;
+
+  try {
+    const result = await connection.query('INSERT INTO workout_plan (workout_name, muscle_group, day) VALUES ($1, $2, $3) RETURNING *', [workout_name, muscle_group, day])
+    res.json(result[0]);
+  } catch (err) {
+    res.status(500).json({error: err.message});
+  }
+})
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)
 });

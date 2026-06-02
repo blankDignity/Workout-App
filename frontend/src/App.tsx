@@ -6,7 +6,7 @@ import About from "./pages/about.tsx";
 import Sidebar from "./components/sidebar.tsx";
 
 function App() {
-  return <div className="grid grid-cols-2">
+  return <div className="grid grid-cols-[auto_1fr] gap-5">
     <Sidebar/>
     <Routes>
       <Route path="/" element={<Home/>}/>
