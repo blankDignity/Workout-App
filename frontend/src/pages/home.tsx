@@ -1,5 +1,6 @@
 import {Card} from "../components/card.tsx";
 import {UpcomingWorkouts} from "../components/upcomingWorkouts.tsx";
+import {WeeklyActivity} from "../components/weeklyActivity.tsx";
 
 function Home() {
 
@@ -19,6 +20,7 @@ function Home() {
       </div>
 
       <UpcomingWorkouts/>
+      <WeeklyActivity/>
     </div>
   </>)
 }
