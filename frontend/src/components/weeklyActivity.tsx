@@ -1,13 +1,13 @@
 import {WeeklyActivityBar} from "./weeklyActivityBar.tsx";
 
 const timeSpentWorkingOut = [
-  {day: "Monday", duration: 90 },
-  {day: "Tuesday", duration: 110},
-  {day: "Wednesday", duration: 80},
-  {day: "Thursday", duration: 100},
-  {day: "Friday", duration: 95},
-  {day: "Saturday", duration: 0},
-  {day: "Sunday", duration: 0},
+  {day: "Mon", duration: 90 },
+  {day: "Tue", duration: 110},
+  {day: "Wed", duration: 80},
+  {day: "Thu", duration: 100},
+  {day: "Fri", duration: 95},
+  {day: "Sat", duration: 0},
+  {day: "Sun", duration: 0},
 ]
 
 
@@ -19,7 +19,7 @@ export function WeeklyActivity() {
           <div className={"text-[#8b8b95] text-sm"}>5 of 7 days completed</div>
         </div>
 
-        <div className={"flex justify-between items-center p-8 h-75"}>
+        <div className={"flex justify-between items-center pl-6 h-65 gap-4"}>
         {timeSpentWorkingOut.map((day) => (
             <WeeklyActivityBar dayBar={day}/>
         ))}

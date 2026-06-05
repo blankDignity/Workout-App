@@ -1,25 +1,26 @@
 import {Workout_list} from '../components/workout_list.tsx'
-import {Timer} from '../components/timer.tsx'
 import {Form} from '../components/form.tsx'
-import type {Workout} from '../types/workout.ts';
+import type {ExerciseType} from '../types/workout.ts';
 import {useState} from "react";
 
 
-type Workout_with_id = Workout & {
+type Exercise_with_id = ExerciseType & {
   id: number;
 }
 
 
-function AddWorkout() {
-  const [Workouts, setWorkouts] = useState<Workout_with_id[]>([]);
+export default function AddWorkout() {
+  const [Workouts, setWorkouts] = useState<Exercise_with_id[]>([]);
 
   return (<>
-    <div id={"body"}>
-      <Form setWorkouts={setWorkouts}/>
+    <div className={"ml-110 w-full flex flex-col"}>
+      <div className={"mt-10"}>
+        <div className={"font-bold text-5xl py-3"}>Add Workout</div>
+        <div className={"text-xl text-zinc-400"}>Create a new workout routine</div>
+      </div>
+
+      <Form setExercises={setWorkouts}/>
       <Workout_list Workouts={Workouts} setWorkouts={setWorkouts}/>
-      <Timer/>
     </div>
   </>)
 }
-
-export default AddWorkout;

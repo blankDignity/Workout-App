@@ -1,18 +1,20 @@
-import type {Workout} from "../types/workout.ts";
+import type {ExerciseType} from "../types/workout.ts";
+import {Exercise} from "./exercise.tsx"
 import * as React from "react";
 import {useState} from "react";
+import {Schedule} from "../assets/schedule.tsx";
 
 
-type Workout_with_id = Workout & {
+type Exercise_with_id = ExerciseType & {
   id: number;
 }
 
 interface props {
-  setWorkouts: React.Dispatch<React.SetStateAction<Workout_with_id[]>>,
+  setExercises: React.Dispatch<React.SetStateAction<Exercise_with_id[]>>,
 }
 
-export function Form({setWorkouts}: props) {
-  const [form, setForm] = useState<Workout>({
+export function Form({setExercises}: props) {
+  const [form, setForm] = useState<ExerciseType>({
     workout_name: "", muscle_group: "",
   });
 
@@ -20,7 +22,7 @@ export function Form({setWorkouts}: props) {
     // sets value as the changed form elements value which will later be sent to the db
     const {name, value} = e.currentTarget;
 
-    setForm((prev: Workout) => ({
+    setForm((prev: ExerciseType) => ({
       ...prev, [name]: value,
     }));
   }
@@ -38,10 +40,10 @@ export function Form({setWorkouts}: props) {
       }, body: JSON.stringify(form),
     });
 
-    const data: Workout_with_id = await response.json();
+    const data: Exercise_with_id = await response.json();
     console.log(`Stored: ${data}`);
 
-    setWorkouts(prev => [...prev, data]);
+    setExercises(prev => [...prev, data]);
 
     setForm({
       workout_name: "", muscle_group: "",
@@ -49,25 +51,28 @@ export function Form({setWorkouts}: props) {
   }
 
   return (<>
-    <span className="form flex justify-center pt-25">
-      <form
-          className={"[&>input]:text-zinc-800 [&>input]:px-1 [&>pre]:text-black [&>pre]:text-[18px] bg-white border rounded-md p-10 border-violet-300 shadow-xl/50 shadow-emerald-700"}
-          onSubmit={handleSubmit}
-          id={"workout_adding_form"}>
+    <div>
+      <form onSubmit={handleSubmit}>
 
-        <span className={"text-black table mx-auto pb-15 font-bold text-2xl"}>ADD WORKOUT</span>
-        <pre className={""}>Workout Name</pre>
-        <input className={"border rounded border-zinc-400 w-68 mb-8"} name={"workout_name"} value={form.workout_name}
-               onChange={handleChange}/><br/>
-
-        <pre>Muscle Group</pre>
-        <input className={"my-1 border rounded border-zinc-400 w-68 mb-8"} name={"muscle_group"}
-               value={form.muscle_group}
-               onChange={handleChange}/><br/><br/>
-        <div className={"flex justify-center"}>
-          <button type={"submit"} className={"saveBtn bg-[#89F336] rounded px-2 text-zinc-800"}>Save</button>
+        <div className="bg-[#16161d] w-4xl rounded-2xl border border-zinc-700 p-6 mt-10">
+          <div className={"font-medium text-[#8b8b95]"}>Exercise Name</div>
+          <input className={"p-4 mt-2 text-white w-full bg-[#1e1e26] rounded-xl h-12 border border-zinc-700"}
+                 name={"workout_name"}
+                 placeholder={"E.g. Chest & Triceps Blast"} value={form.workout_name} onChange={handleChange}/>
         </div>
+
+        <div className={"bg-[#16161d] w-4xl rounded-2xl border border-zinc-700 p-6 my-8"}>
+          <div className={"font-medium text-[#8b8b95]"}>Muscle Group</div>
+          <input className={"p-4 mt-2 text-white w-full bg-[#1e1e26] rounded-xl h-12 border border-zinc-700"}
+                 name={"muscle_group"} placeholder={"e.g. Chest, Triceps"} value={form.muscle_group}
+                 onChange={handleChange}/>
+        </div>
+
+        <Exercise/>
+        <Schedule/>
+        <button type={"submit"} className={"w-4xl text-white bg-linear-to-br from-[#ff4757] to-[#ff6b81] rounded-2xl cursor-pointer py-4 text-[18px] font-bold"}>Create Workout</button>
       </form>
-    </span>
-  </>);
+    </div>
+  </>)
+      ;
 }

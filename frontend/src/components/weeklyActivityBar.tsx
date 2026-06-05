@@ -6,11 +6,13 @@ type dayBarProps = {
 
 export function WeeklyActivityBar({dayBar}: dayBarProps) {
   return (
-      <div className={"flex flex-col h-full justify-end"}>
+      <div className={"flex flex-col h-full w-full justify-end"}>
 
-        <div style={{height: `${dayBar.duration}px`}}
-             className={`bg-red-400 rounded-xl`}></div>
-        <div>{dayBar.day}</div>
+        <div style={{height: `${dayBar.duration * 2}px`}}
+             className={`bg-linear-to-t from-[#ff4757] to-[#ff6b81] rounded-xl`}></div>
+        <center>
+          <div className={"mt-3 pb-2 text-bold text-[#8b8b91]"}>{dayBar.day}</div>
+        </center>
       </div>
   )
 }
