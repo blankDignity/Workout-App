@@ -1,4 +1,4 @@
-import {WorkoutCard} from "./workoutCard.tsx";
+import {UpcomingWorkoutCard} from "./upcomingWorkoutCard.tsx";
 import {Link} from "react-router-dom";
 import type {UpcomingWorkout} from "../types/upcomingWorkout.ts";
 
@@ -20,7 +20,7 @@ export function UpcomingWorkouts() {
 
 
     {upcomingWorkouts.map((workout: UpcomingWorkout) => (
-        <WorkoutCard workout={workout}/>
+        <UpcomingWorkoutCard workout={workout}/>
     ))}
   </div>)
 }

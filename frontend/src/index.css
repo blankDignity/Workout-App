@@ -13,3 +13,52 @@
         font-family: InterVariable, sans-serif;
     }
 }
+
+/* 1. Tell the calendar grid to separate its cells instead of collapsing them */
+.fc-theme-standard .fc-scrollgrid,
+.fc-theme-standard td,
+.fc-theme-standard th {
+    border: none !important; /* Remove the default outer grid borders */
+}
+
+.fc .fc-scrollgrid-section-body table,
+.fc .fc-scroller-inner table {
+    border-collapse: separate !important;
+    border-spacing: 6px !important; /* This controls the gap between the cells */
+}
+
+h2 {
+    color: white;
+}
+
+.fc-day {
+    color: white;
+}
+
+/* 2. Style the individual day cells */
+.fc .fc-daygrid-day {
+    background-color: #1e1e26 !important; /* Clean, light background color */
+    border-radius: 8px !important;       /* Rounded corners for the "card" look */
+    transition: all 0.2s ease;
+    color: #8b8b95 !important;
+}
+
+/* 3. Optional: Add a hover effect to make them feel interactive */
+.fc .fc-daygrid-day:hover {
+    background-color: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    color: black !important;
+}
+
+/* 4. Optional: Style today's cell differently so it stands out */
+.fc .fc-day-today {
+    background-color: #1e1e26 !important; /* Light blue background for today */
+}
+
+/* 5. Optional: Make past/other-month days look slightly faded */
+.fc .fc-day-other {
+    background-color: #1e1e26 !important;
+    opacity: 0.6;
+}
