@@ -3,73 +3,106 @@ import type {ExerciseType} from "../types/exercise.ts";
 import {Exercise} from "./exercise.tsx"
 import * as React from "react";
 import {useState} from "react";
-import {Schedule} from "../assets/schedule.tsx";
+import {Schedule} from "./schedule.tsx";
 
-type Exercise_with_id = ExerciseType & {
+type Workout_with_id = WorkoutType & {
   id: number;
 }
 
-type stateProps = {
-  setExercises: React.Dispatch<React.SetStateAction<Exercise_with_id[]>>,
+type workoutsProps = {
+  setWorkouts: React.Dispatch<React.SetStateAction<Workout_with_id[]>>,
 }
 
-export function Form({setExercises}: stateProps) {
-  const [form, setForm] = useState<WorkoutType>({
-    workout_name: "", muscle_group: "", exercise_names: [{name: "", sets: 0, reps: 0}], date: "", time: "",
+export function Form({setWorkouts}: workoutsProps) {
+  const [workout, setWorkout] = useState<Workout_with_id>({
+    id: 0,
+    workout_name: "",
+    muscle_group: "",
+    exercise_names: [],
+    date: "",
+    time: ""
   });
 
   function handleWorkoutChange(e: React.ChangeEvent<HTMLInputElement>) {
-    // sets value as the changed form elements value which will later be sent to the db
     const {name, value} = e.currentTarget;
 
-    setForm((prev: WorkoutType) => ({
+    setWorkout((prev: Workout_with_id) => ({
       ...prev, [name]: value,
     }));
   }
 
+  const handleExerciseChange = (index: number, field: keyof ExerciseType, value: string | number) => {
+    setWorkout((prev) => {
+      const updatedExercises = [...prev.exercise_names];
+      updatedExercises[index] = {
+        ...updatedExercises[index],
+        [field]: field === "sets" || field === "reps" ? Number(value) : value,
+      };
+      return {...prev, exercise_names: updatedExercises};
+    });
+  };
+
+  const addExercise = () => {
+    setWorkout((prev) => ({
+      ...prev,
+      exercise_names: [...prev.exercise_names, {name: "", sets: 0, reps: 0}],
+    }));
+  };
+
+  const removeExercise = (index: number) => {
+    setWorkout((prev) => ({
+      ...prev,
+      exercise_names: prev.exercise_names.filter((_, i) => i !== index),
+    }));
+  };
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!form.workout_name) {
+    if (!workout.workout_name || workout.exercise_names.length === 0) {
       return;
     }
 
     const response = await fetch("http://localhost:3000/api/workout_list", {
       method: "POST", headers: {
         "Content-type": "application/json",
-      }, body: JSON.stringify(form),
+      }, body: JSON.stringify(workout),
     });
 
-    const data: Exercise_with_id = await response.json();
+    const data: Workout_with_id = await response.json();
     console.log(`Stored: ${data}`);
 
-    setExercises(prev => [...prev, data]);
+    setWorkouts(prev => [...prev, data]);
 
-    setForm({
-      workout_name: "", muscle_group: "", exercise_names: [], date: "", time: ""
+    setWorkout({
+      id: 0, workout_name: "", muscle_group: "", exercise_names: [], date: "", time: ""
     })
   }
 
   return (<>
     <div>
       <form onSubmit={handleSubmit}>
-
         <div className="bg-[#16161d] w-4xl rounded-2xl border border-zinc-700 p-6 mt-10">
           <div className={"font-medium text-[#8b8b95]"}>Workout Name</div>
           <input className={"p-4 mt-2 text-white w-full bg-[#1e1e26] rounded-xl h-12 border border-zinc-700"}
                  name={"workout_name"}
-                 placeholder={"E.g. Chest & Triceps Blast"} value={form.workout_name} onChange={handleWorkoutChange}/>
+                 placeholder={"E.g. Chest & Triceps Blast"} value={workout.workout_name}
+                 onChange={handleWorkoutChange}/>
         </div>
 
         <div className={"bg-[#16161d] w-4xl rounded-2xl border border-zinc-700 p-6 my-8"}>
           <div className={"font-medium text-[#8b8b95]"}>Muscle Group</div>
           <input className={"p-4 mt-2 text-white w-full bg-[#1e1e26] rounded-xl h-12 border border-zinc-700"}
-                 name={"muscle_group"} placeholder={"e.g. Chest, Triceps"} value={form.muscle_group}
+                 name={"muscle_group"} placeholder={"e.g. Chest, Triceps"} value={workout.muscle_group}
                  onChange={handleWorkoutChange}/>
         </div>
 
-        <Exercise/>
-        <Schedule/>
+        <Exercise exerciseNames={workout.exercise_names}
+                  onAdd={addExercise}
+                  onRemove={removeExercise}
+                  onChange={handleExerciseChange}/>
+        <Schedule date={workout.date} time={workout.time} onChange={handleWorkoutChange}/>
+
         <button type={"submit"}
                 className={"w-4xl text-white bg-linear-to-br from-[#ff4757] to-[#ff6b81] rounded-2xl cursor-pointer py-4 text-[18px] font-bold"}>Create
           Workout
