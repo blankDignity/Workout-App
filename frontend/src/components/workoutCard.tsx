@@ -1,9 +1,7 @@
-type workoutData = {
-  level: string, category: string, label: string, duration: number, calories: number, exercises: number
-}
+import type {WorkoutType} from "../types/workout.ts";
 
 type workoutCardProps = {
-  workout: workoutData
+  workout: WorkoutType,
 }
 
 export function WorkoutCard({workout}: workoutCardProps) {
@@ -11,10 +9,7 @@ export function WorkoutCard({workout}: workoutCardProps) {
     <div className="flex justify-between items-center">
       <div className={"flex gap-2 text-[#8b8b95]"}>
         <div className={"px-2 py-1 text-sm rounded-full bg-[#1e1e26]"}>
-          {workout.level}
-        </div>
-        <div className={"px-2 py-1 text-sm rounded-full bg-[#1e1e26]"}>
-          {workout.category}
+          {workout.muscle_group}
         </div>
       </div>
       <div>
@@ -24,7 +19,7 @@ export function WorkoutCard({workout}: workoutCardProps) {
       </div>
     </div>
 
-    <div className={"font-bold text-2xl px-1 pt-4 pb-6 border-b border-zinc-700"}>{workout.label}</div>
+    <div className={"font-bold text-2xl px-1 pt-4 pb-6 border-b border-zinc-700"}>{workout.workout_name}</div>
 
     <div className={"flex gap-4 mt-4 mx-2 justify-between items-center"}>
       <div>
@@ -36,7 +31,7 @@ export function WorkoutCard({workout}: workoutCardProps) {
           <div className={"text-sm text-[#8b8b95]"}>Duration</div>
         </div>
 
-        <div className={"mt-2 font-medium"}>{workout.duration} min</div>
+        <div className={"mt-2 font-medium"}>{workout.exercise_names.length * 10} min</div>
       </div>
 
       <div>
@@ -51,7 +46,7 @@ export function WorkoutCard({workout}: workoutCardProps) {
           <div className={"text-sm text-[#8b8b95]"}>Calories</div>
         </div>
 
-        <div className={"mt-2 font-medium"}>{workout.calories}</div>
+        <div className={"mt-2 font-medium"}>{workout.exercise_names.length * 142}</div>
       </div>
 
       <div>
@@ -65,11 +60,12 @@ export function WorkoutCard({workout}: workoutCardProps) {
           <div className={"text-sm text-[#8b8b95]"}>Exercises</div>
         </div>
 
-        <div className={"mt-2 font-medium"}>{workout.exercises}</div>
+        <div className={"mt-2 font-medium"}>{workout.exercise_names.length}</div>
       </div>
     </div>
 
-    <div className={"flex items-center justify-center bg-[#1e1e26] h-12 rounded-2xl mx-8 mt-8 "}>
+    <div
+        className={"flex items-center justify-center bg-[#1e1e26] hover:bg-[#252530] hover:cursor-pointer h-12 rounded-2xl mx-8 mt-8 font-bold"}>
       Start Workout
     </div>
   </div>)

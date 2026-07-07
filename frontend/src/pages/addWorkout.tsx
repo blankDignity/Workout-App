@@ -1,19 +1,16 @@
-import {Workout_list} from '../components/workout_list.tsx'
 import {Form} from '../components/form.tsx'
 import type {WorkoutType} from '../types/workout.ts';
-import {useState} from "react";
 
 
 type Workout_with_id = WorkoutType & {
   id: number;
 }
 
+type setWorkoutsProps = {
+  setWorkouts: React.Dispatch<React.SetStateAction<Workout_with_id[]>>;
+}
 
-export default function AddWorkout() {
-  const [Workouts, setWorkouts] = useState<Workout_with_id[]>([{
-    id: 0, workout_name: "", muscle_group: "", exercise_names: [], date: "", time: "",
-  }]);
-
+export default function AddWorkout({setWorkouts}: setWorkoutsProps) {
   return (<>
     <div className={"ml-110 w-full flex flex-col"}>
       <div className={"mt-10"}>
@@ -22,7 +19,6 @@ export default function AddWorkout() {
       </div>
 
       <Form setWorkouts={setWorkouts}/>
-      <Workout_list Workouts={Workouts} setWorkouts={setWorkouts}/>
     </div>
   </>)
 }

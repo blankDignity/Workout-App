@@ -79,6 +79,18 @@ export function Form({setWorkouts}: workoutsProps) {
     })
   }
 
+  // const workoutGradients: string[] = [
+  //   "bg-gradient-to-r from-[#FF4B5C] to-[#FF758C]",
+  //   "bg-gradient-to-r from-[#4F46E5] to-[#7C3AED]",
+  //   "bg-gradient-to-r from-[#00B4D8] to-[#00F5D4]",
+  //   "bg-gradient-to-r from-[#FCD34D] to-[#F472B6]"
+  // ];
+  //
+  // export function getRandomGradient(): string {
+  //   return workoutGradients[Math.floor(Math.random() * workoutGradients.length)];
+  // }
+
+
   return (<>
     <div>
       <form onSubmit={handleSubmit}>
@@ -108,6 +120,7 @@ export function Form({setWorkouts}: workoutsProps) {
           Workout
         </button>
       </form>
+
     </div>
   </>);
 }
