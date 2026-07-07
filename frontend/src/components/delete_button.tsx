@@ -1,7 +1,7 @@
 import * as React from "react";
-import type {Exercise} from "../types/workout.ts";
+import type {WorkoutType} from "../types/workout.ts";
 
-type Exercise_with_id = Exercise & {
+type Exercise_with_id = WorkoutType & {
   id: number;
 }
 
