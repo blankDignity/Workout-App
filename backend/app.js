@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const port = 3000;
-const {Client} = require('pg');
+const { Client } = require('pg');
 
 app.use(cors());
 app.use(express.json());
@@ -40,13 +40,13 @@ app.get('/api/workouts', async (req, res) => {
     const result = await connection.query(query);
     res.json(result.rows);
   } catch (err) {
-    res.status(500).json({error: err.message});
+    res.status(500).json({ error: err.message });
   }
 });
 
 
 app.post('/api/workout_list', async (req, res) => {
-  const {workout_name, muscle_group, exercise_names, date, time} = req.body;
+  const { workout_name, muscle_group, exercise_names, date, time } = req.body;
 
   try {
     await connection.query('BEGIN');
@@ -82,18 +82,18 @@ app.post('/api/workout_list', async (req, res) => {
 
   } catch (err) {
     await connection.query('ROLLBACK');
-    res.status(500).json({error: err.message});
+    res.status(500).json({ error: err.message });
   }
 });
 
 
 app.delete('/api/workouts/:id', async (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   try {
     const result = await connection.query('DELETE FROM workout_list WHERE id = $1 RETURNING *;', [id]);
     res.json(result.rows[0]);
   } catch (err) {
-    res.status(500).json({error: err.message});
+    res.status(500).json({ error: err.message });
   }
 });
 

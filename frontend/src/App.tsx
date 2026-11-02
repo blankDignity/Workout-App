@@ -14,9 +14,7 @@ type Workout_with_id = WorkoutType & {
 }
 
 function App() {
-  const [workouts, setWorkouts] = useState<Workout_with_id[]>([{
-    id: 0, workout_name: "", muscle_group: "", exercise_names: [], date: "", time: "",
-  }]);
+  const [workouts, setWorkouts] = useState<Workout_with_id[]>([]);
 
   useEffect(() => {
     async function getData() {
