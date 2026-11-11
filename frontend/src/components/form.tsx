@@ -117,7 +117,7 @@ export function Form({setWorkouts}: workoutsProps) {
 
         <button type={"submit"}
                 className={"w-4xl text-white bg-linear-to-br from-[#ff4757] to-[#ff6b81] rounded-2xl cursor-pointer py-4 text-[18px] font-bold"}>Create
-          Workout
+          Workout testing
         </button>
       </form>
 
